@@ -1,16 +1,17 @@
 /* fonction permettant de gérer la quantité et de modifier les valeurs en fonction */
 
 function valeur(name, nombre){
+	//on remplace les , par des . pour pouvoir utiliser le nombre
 	var taxe=document.getElementById('ttc'+ nombre).innerHTML.replace(',','.');
-	console.log(taxe);
 	var quantity=document.getElementById(name).value;
-	console.log(quantity);
-	console.log(taxe);
+	//on crée une variable val qui va être égale au total
 	val = Number(taxe) * Number(quantity);
 	document.getElementById('resultat'+nombre).innerHTML = val ;
-	resultat = document.getElementById('resultat'+nombre).innerHTML;
+	//on reformate le résultat avec la virgule
+	resultat = document.getElementById('resultat'+nombre).innerHTML.replace('.',',');
+	//le résultat apparaît en formaté dans la console
 	console.log(resultat);
-	//remettre la virgule et formater à deux chiffres après celle-ci
+	// formater à deux chiffres après la virgule
 	//	resultat=
 
 

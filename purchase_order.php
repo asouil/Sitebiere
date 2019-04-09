@@ -95,7 +95,7 @@
 
 		<br /><br /><br /><br />
 
-	<table>
+	<table id = "commande">
 		<thead ><h3> Quantités de commande </h3></thead>
 		<tr><td>Nom de la Bière</td>
 			<td>Prix HT</td>
