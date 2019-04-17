@@ -11,8 +11,8 @@ function valeur(name, nombre){
 	resultat = document.getElementById('resultat'+nombre).innerHTML.replace('.',',');
 	//le résultat apparaît en formaté dans la console
 	console.log(resultat);
-	// formater à deux chiffres après la virgule
+	// formater à deux chiffres après la virgule (substr << équivalent?)
 	//	resultat=
 
-
+	document.getElementById('resultat'+nombre).innerHTML= resultat;
 }

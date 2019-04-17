@@ -1,5 +1,5 @@
-<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <?php 
 //tableau de tableaux avec en 0 le nom de la bière en 1 l'image en 2 le descriptif et en 3 le prix ht
@@ -80,6 +80,8 @@ $beerArray = [
 	<?php if($i%3==2) {
 		echo'</div>';
 	} ?>
+
+	<a href="PHP/purchase_order.php"> Commander</a>
 
 <?php endfor; 
 
