@@ -6,7 +6,7 @@ if (isset($_SESSION["connect"])) {
 	$connect = false;
 }
 if($connect){
-	header("Location: page.php");
+	header("Location: index.php");
 	//fin du traitement
 }
 if(!empty($_POST)){
@@ -16,11 +16,11 @@ if(!empty($_POST)){
 	$mail 		= strtolower($_POST["mail"]);
 	$prenom		= $_POST["forname"]; 
 	$adresse 	= $_POST["adresse"];
-	$cp 		= $_POST"cp"];
+	$cp 		= $_POST["cp"];
 	$ville 		= $_POST["ville"];
 	$pays 		= $_POST["pays"];
-	$telephone 	= $_POST"phone"];
-	$mail 		= $_POST"mail"];
+	$telephone 	= $_POST["phone"];
+	$mail 		= $_POST["mail"];
 
 
 	if (!empty($mail) && !empty($password)){
@@ -93,11 +93,11 @@ if(!empty($_POST)){
 				<header>
 					<h2>Inscription</h2>
 				</header>
-				<form action="" method="Post">
-					<input type="text" name="name" placeholder="Nom d'utilisateur" required="required" /><br/>
+				<form action="" method="post">
+					<input type="text" name="name" placeholder="Nom" required="required" /><br/>
+					<input type="text" name="forname" placeholder="Prénom" required="required" /><br/>
 					<input type="password" name="password" placeholder="Mot de passe" required="required" /><br/>
 					<input type="password" name="password_verif" placeholder="Confirmez le mot de passe"  /><br/>
-					<input type="text" name="forname" placeholder="Prénom" required="required" /><br/>
 					<input type="text" name="adresse" placeholder="Adresse" required="required" /><br/>
 					<input type="text" name="ville" placeholder="Ville" required="required" /><br/>
 					<input type="text" name="cp" placeholder="Code Postal" required="required" /><br/>

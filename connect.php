@@ -10,11 +10,11 @@ if (isset($_SESSION["connect"])) {
 	$connect = false;
 }
 if (empty($connect)){
-	header("Location: ./connexion.php");	
+	header("Location: connexion.php");	
 }
 
 if (isset($_SESSION["mail"])) {
-	$username = $_SESSION["username"];
+	$mail = $_SESSION["mail"];
 }else{
-	$username = "";
+	$mail = "";
 }

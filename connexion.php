@@ -7,7 +7,7 @@ if (isset($_SESSION["connect"])) {
 	$connect = false;
 }
 if($connect){
-	header("Location: ./index.php");
+	header("Location: index.php");
 }
 //fin vérification connexion
 
@@ -35,7 +35,7 @@ if(!empty($_POST)){
 					
 					$_SESSION["connect"] = true;
 					$_SESSION["mail"] = $user["mail"];
-					header("Location: ./index.php");
+					header("Location: index.php");
 			}else{
 				header("HTTP/1.0 403 Forbidden");
 				/* USERNAME ou MDP pas bon */
@@ -65,7 +65,7 @@ if(!empty($_POST)){
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>formulaire de connexion</title>
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 	<div class="wrapper">
@@ -75,7 +75,7 @@ if(!empty($_POST)){
 					<h2>Identification</h2>
 				</header>
 				<form action="" method="Post">
-					<input <?= $errmail ?> type="text" name="email" placeholder="Votre mail" required="required" />
+					<input <?= $errmail ?> type="text" name="mail" placeholder="Votre mail" required="required" />
 					<input <?= $errpassword ?> type="password" name="password" placeholder="Mot de passe" required="required" /><br/>
 					<button type="submit">Connexion</button>
 				
@@ -85,7 +85,8 @@ if(!empty($_POST)){
 		<nav>
 			<a href="inscription.php">Création de compte</a><br/>
 			<a href="index.php">Retour à l'accueil</a><br/>
-			<a href="PHP/purchase_order.php">Commander</a><br/>
+			<a href="purchase_order.php">Commander</a><br/>
+		</nav>
 	</div>
 </body>
 </html>

@@ -1,4 +1,5 @@
 <?php 
+require "connect.php";
 /* un formulaire avec :
 -nom 
 -prénom 
@@ -103,7 +104,7 @@
 			<td>Quantité</td>
 			<td>Total</td>
 			<!--td>donne le format du tableau</td>-</tr-->
-	<form type="post" action="">
+	<form type="post" action="commande.php">
 		<?php 
 
 			//number_format($nombre,chiffres après la virgule, 'par quoi remplacer','ce qu'on remplace')
@@ -128,6 +129,15 @@
 		<button type="submit">Valider la commande</button>
 	</form>
 	<br><br><br><br>
+	<nav>
+	<a href="index.php"> Accueil</a>
+	<a href="purchase_order.php"> Commander</a>
+	<a href="connexion.php"> Connexion</a>
+	<a href="inscription.php"> Vous inscrire</a>
+	<a href="deconnexion.php"> Déconnexion</a>
+
+</nav>
+
 <script type="text/javascript" src="../js/script.js"></script>
 </body>
 </html>

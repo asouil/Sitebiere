@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -93,7 +94,7 @@ $beerArray = [
 
 ?>
 <nav>
-	<a href="PHP/purchase_order.php"> Commander</a>
+	<a href="purchase_order.php"> Commander</a>
 	<a href="connexion.php"> Connexion</a>
 	<a href="inscription.php"> Vous inscrire</a>
 	<a href="deconnexion.php"> Déconnexion</a>
