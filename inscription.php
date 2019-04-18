@@ -25,7 +25,7 @@ if(!empty($_POST)){
 
 	if (!empty($mail) && !empty($password)){
 		require_once 'db.php';
-		$sql = "SELECT * FROM users WHERE `mail`= ?";
+		$sql = "SELECT * FROM utilisateurs WHERE `mail`= ?";
 		$statement = $pdo->prepare($sql);
 		$statement->execute([$mail]);
 		$user = $statement->fetch();
@@ -81,10 +81,12 @@ if(!empty($_POST)){
 <html>
 
 <head>
-	<meta charset="utf-8" />
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Création de compte</title>
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
 </head>
 <body>
 	<div class="wrapper">
@@ -112,7 +114,6 @@ if(!empty($_POST)){
 	<nav>
 		<a href="connexion.php">Identification</a><br/>
 		<a href="index.php">Retour à l'accueil</a><br/>
-		<a href="PHP/purchase_order.php">Commander</a><br/>
 	</nav>
 </body>
 </html>

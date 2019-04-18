@@ -62,10 +62,12 @@ if(!empty($_POST)){
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<meta charset="utf-8" />
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>formulaire de connexion</title>
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+
 </head>
 <body>
 	<div class="wrapper">

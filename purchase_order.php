@@ -17,50 +17,12 @@ require "connect.php";
 	-une valeur premettant de changer les quantités, 
 	- un bouton pour tout envoyer. */
 //tableau avecle nom de la bière et le prix ht
-
-	$beerArray2=[
-		[
-			"La Chouffe Blonde D'Ardenne",
-			1.91
-		],
-		[
-			'Duvel',
-			1.66
-		],
-		[
-			'Duvel Tripel Hop',
-			2.24
-		],
-		[
-			'Delirium Tremens',
-			2.08
-		],
-		[
-			'Delirium Nocturnum',
-			2.24
-		],
-		[
-			'Cuvée des Trolls',
-			1.29
-		],
-		[
-			'Chimay Rouge',
-			1.49
-		],
-		[
-			'Chimay Bleue',
-			1.74
-		],
-		[
-			'Chimay Triple',
-			1.57
-		]
-	];
 ?>
 <html>
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- niveau affichage : essayer d'aligner un peu les cases des input, voire mettre en deux colonnes -->
 
 <body  class="col-12">
@@ -106,22 +68,23 @@ require "connect.php";
 			<!--td>donne le format du tableau</td>-</tr-->
 	<form type="post" action="commande.php">
 		<?php 
+		require_once "db.php";
+		$sql = "SELECT * FROM `beers`" ;
+			$statement = $pdo->prepare($sql);
+			$statement->execute([$sql]);
+			$beers = $statement->fetchAll();
+ 			foreach ($beers as $beer): ?>
 
-			//number_format($nombre,chiffres après la virgule, 'par quoi remplacer','ce qu'on remplace')
-			for($i=0 ;$i<count($beerArray2) ;$i++){ 
-				$HT =$beerArray2[$i][1];
-				$TTC=$beerArray2[$i][1]*1.2; ?>
-					<tr><td id="nomBiere<?= $i ?>">	<?= $beerArray2[$i][0] ?></td>
-						<td id="ht<?= $i ?>"><?= number_format($HT,2,',','.') ?></td>
-						<td id="ttc<?= $i ?>"><?= number_format($TTC,2,',','.')?></td>
-						<!-- on veut value = contenu de la cellule * quantité de l'autre cellule-->
-						<td><input id="quantite<?= $i ?>" type="number" min="0" max="100" value="0"
-							onclick='valeur("quantite<?= $i ?>", <?= $i ?>)'></td>
-
-						<td id="resultat<?= $i ?>"></td>
-						
-					</tr>
-		<?php } ?>
+ 				<div>
+					<tr id="Nom<?=$beer['id']?>"><td><?=$beer["nom"] ?></td>
+					<td id="ht<?=$beer['id']?>"><?=number_format($beer["prix"],2, ',','.') ?>€ </td>
+					<td><?=number_format($beer["prix"]*1.2,2, ',','.') ?>€ </td>
+					<td><input id="quantite<?=$beer['id']?>" type="number" min="0" max="100" value="0" onclick='valeur(quantite<?=$beer['id']?>,<?=$beer['id']?>)'></td>
+					<!-- On veut la valeur dans la case total -->
+					<td id="resultat<?= $beer['id'] ?>"></td>
+				</div>
+			</tr>
+		<?php endforeach; ?>
 
 		
 		
@@ -130,15 +93,20 @@ require "connect.php";
 	</form>
 	<br><br><br><br>
 	<nav>
-	<a href="index.php"> Accueil</a>
-	<a href="purchase_order.php"> Commander</a>
-	<a href="connexion.php"> Connexion</a>
-	<a href="inscription.php"> Vous inscrire</a>
-	<a href="deconnexion.php"> Déconnexion</a>
+	<nav>
+		<a href="index.php"> Accueil</a><br>
+		<!--si pas connecté sinon cacher-->
+		<a href="connexion.php"> Connexion</a><br>
+		<a href="inscription.php"> Vous inscrire</a><br>
+		<a href="purchase_order.php"> Commander</a><br>
+		<!--si connecté sinon cacher-->
+		<a href="mon_compte.php"> Mon compte</a><br>
+		<a href="deconnexion.php"> Déconnexion</a><br>
+	</nav>
 
-</nav>
+	</nav>
 
-<script type="text/javascript" src="../js/script.js"></script>
+<script type="text/javascript" src="./js/script.js"></script>
 </body>
 </html>
 

@@ -1,5 +1,6 @@
 div{
-	justify-content: center;
+	padding:30px;
+	justify-content: auto;
 }
 
 p{
@@ -14,5 +15,11 @@ p{
 .commande{
 	border-style: solid;
 }
+nav{
 
+	font-family: 'PT-Serif', Serif;
+	font-style: italic;
+	text-align: center;
+	font-size:14px;
+}
 
