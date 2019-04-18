@@ -1,6 +1,14 @@
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Bières en vente</title>
+</head>
+<body>
+
+
 <?php 
 //tableau de tableaux avec en 0 le nom de la bière en 1 l'image en 2 le descriptif et en 3 le prix ht
 $beerArray = [
@@ -81,11 +89,16 @@ $beerArray = [
 		echo'</div>';
 	} ?>
 
-
 <?php endfor; 
 
 ?>
-<a href="PHP/purchase_order.php"> Commander</a>
-<a href="connexion.php"> Connexion</a>
-<a href="inscription.php"> Vous inscrire</a>
+<nav>
+	<a href="PHP/purchase_order.php"> Commander</a>
+	<a href="connexion.php"> Connexion</a>
+	<a href="inscription.php"> Vous inscrire</a>
+	<a href="deconnexion.php"> Déconnexion</a>
 
+</nav>
+
+</body>
+</html>

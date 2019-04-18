@@ -64,7 +64,7 @@
 
 <body  class="col-12">
 	<br /><br />
-	<table>
+	<!--table>
 		<form method="get" action>
 			<tr><td><label>Nom :</label></td>
 			<td><input type="text" name="nom" placeholder="Doe"required></td></tr>
@@ -91,7 +91,7 @@
 			<td><input type="email" name="mail" placeholder="example@serveur.com" required></td></tr>
 		</form>
 	</table>
-	<button type="submit">Envoyer</button>
+	<button type="submit">Envoyer</button-->
 
 		<br /><br /><br /><br />
 
@@ -103,30 +103,32 @@
 			<td>Quantité</td>
 			<td>Total</td>
 			<!--td>donne le format du tableau</td>-</tr-->
-	
-	<?php 
+	<form type="post" action="">
+		<?php 
 
-		//number_format($nombre,chiffres après la virgule, 'par quoi remplacer','ce qu'on remplace')
-		for($i=0 ;$i<count($beerArray2) ;$i++){ 
-			$HT =$beerArray2[$i][1];
-			$TTC=$beerArray2[$i][1]*1.2; ?>
-				<tr><td id="nomBiere<?= $i ?>">	<?= $beerArray2[$i][0] ?></td>
-					<td id="ht<?= $i ?>"><?= number_format($HT,2,',','.') ?></td>
-					<td id="ttc<?= $i ?>"><?= number_format($TTC,2,',','.')?></td>
-					<!-- on veut value = contenu de la cellule * quantité de l'autre cellule-->
-					<td><input id="quantite<?= $i ?>" type="number" min="0" max="100" value="1"
-						onclick='valeur("quantite<?= $i ?>", <?= $i ?>)'></td>
+			//number_format($nombre,chiffres après la virgule, 'par quoi remplacer','ce qu'on remplace')
+			for($i=0 ;$i<count($beerArray2) ;$i++){ 
+				$HT =$beerArray2[$i][1];
+				$TTC=$beerArray2[$i][1]*1.2; ?>
+					<tr><td id="nomBiere<?= $i ?>">	<?= $beerArray2[$i][0] ?></td>
+						<td id="ht<?= $i ?>"><?= number_format($HT,2,',','.') ?></td>
+						<td id="ttc<?= $i ?>"><?= number_format($TTC,2,',','.')?></td>
+						<!-- on veut value = contenu de la cellule * quantité de l'autre cellule-->
+						<td><input id="quantite<?= $i ?>" type="number" min="0" max="100" value="0"
+							onclick='valeur("quantite<?= $i ?>", <?= $i ?>)'></td>
 
-					<td id="resultat<?= $i ?>"></td>
-				</tr>
-	<?php } ?>
-	
-	
-	
-	</table>
+						<td id="resultat<?= $i ?>"></td>
+						
+					</tr>
+		<?php } ?>
 
+		
+		
+		</table>
+		<button type="submit">Valider la commande</button>
+	</form>
 	<br><br><br><br>
-<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="../js/script.js"></script>
 </body>
 </html>
 

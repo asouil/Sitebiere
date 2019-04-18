@@ -1,4 +1,4 @@
-<?php
+<?php/*
 //tableau de tableaux avec en 0 le nom de la bière en 1 l'image en 2 le descriptif et en 3 le prix ht
 $beerArray = [
 		[
@@ -71,7 +71,7 @@ $beerArray = [
 						":prix" => $beerArray[$i][3]]);
 		echo $result;
 	}
-
+*/
 ?>
 
 <!DOCTYPE html>

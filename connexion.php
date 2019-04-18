@@ -7,25 +7,25 @@ if (isset($_SESSION["connect"])) {
 	$connect = false;
 }
 if($connect){
-	header("Location: ./page.php");
+	header("Location: ./index.php");
 }
 //fin vérification connexion
 
-$errusername="";
+$errmail="";
 $errpassword="";
 
 if(!empty($_POST)){
 
-	$username = strtolower($_POST["username"]);
+	$mail = strtolower($_POST["mail"]);
 	$password = $_POST["password"];
 
-	if (!empty($username) && !empty($password)){
+	if (!empty($mail) && !empty($password)){
 		/* verifier couple user / mdp */
 		//récupération user :
 		require_once "db.php";
-		$sql = "SELECT * FROM `utilisateurs` WHERE `nom`= ?";
+		$sql = "SELECT * FROM `utilisateurs` WHERE `mail`= ?";
 		$statement = $pdo->prepare($sql);
-		$statement->execute([$username]);
+		$statement->execute([$mail]);
 		$user = $statement->fetch();
 
 		//on va appeler la db pour connecter l'utilisateur
@@ -34,8 +34,8 @@ if(!empty($_POST)){
 			if (password_verify($password, $user["password"])){
 					
 					$_SESSION["connect"] = true;
-					$_SESSION["username"] = $user["nom"];
-					header("Location: ./page.php");
+					$_SESSION["mail"] = $user["mail"];
+					header("Location: ./index.php");
 			}else{
 				header("HTTP/1.0 403 Forbidden");
 				/* USERNAME ou MDP pas bon */
@@ -46,12 +46,12 @@ if(!empty($_POST)){
 		}
 	}else{
 
-		if(empty($username)){
-			$errusername= "class=\"danger\"";
+		if(empty($email)){
+			$errmail= "class='danger'";
 		}
 
 		if(empty($password)){
-			$errpassword="class=\"danger\"";
+			$errpassword="class='danger'";
 		}
 		
 	}
@@ -75,13 +75,17 @@ if(!empty($_POST)){
 					<h2>Identification</h2>
 				</header>
 				<form action="" method="Post">
-					<input <?= $errusername ?> type="text" name="username" placeholder="Nom d'utilisateur" required="required" />
-					<input <?= $errpassword ?> type="password" name="password" placeholder="Mot de passe" required="required" />
+					<input <?= $errmail ?> type="text" name="email" placeholder="Votre mail" required="required" />
+					<input <?= $errpassword ?> type="password" name="password" placeholder="Mot de passe" required="required" /><br/>
 					<button type="submit">Connexion</button>
-					<a href="inscription.php">Création de compte</a><br/>
+				
 				</form>
 			</div>
 		</section>
+		<nav>
+			<a href="inscription.php">Création de compte</a><br/>
+			<a href="index.php">Retour à l'accueil</a><br/>
+			<a href="PHP/purchase_order.php">Commander</a><br/>
 	</div>
 </body>
 </html>
