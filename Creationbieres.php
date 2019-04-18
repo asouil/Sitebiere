@@ -1,7 +1,4 @@
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<?php 
+<?php
 //tableau de tableaux avec en 0 le nom de la bière en 1 l'image en 2 le descriptif et en 3 le prix ht
 $beerArray = [
 		[
@@ -59,33 +56,36 @@ $beerArray = [
 			1.57
 		]
 	];
-?>
-<h1 class="text-center">Les bières</h1>
 
-<?php for($i=0 ;$i<count($beerArray) ;$i++) : ?>
-<!--?php var_dump($beerArray[$i]) ; ?-->
-
-	<?php if($i%3==0) {
-		echo'<div class="row col-md-12 offset-0">';
-	} ?>
-	<!-- Changement de style de l'affichage des cases du tableau selon i dans la boucle -->
-	<div class="col-12 col-sm-8 col-md-3 offset-0 text-center">
-		<h2 class="text-center"><?= $beerArray[$i][0] ?></h2>
-		<img src="<?= $beerArray[$i][1] ?>" alt= '<?= $beerArray[$i][0] ?>' height="30%" >
-		<p class="text-responsive"><?= substr ($beerArray[$i][2] , 0 , 150).'[...]' ?></p>
-		<p><?=number_format($beerArray[$i][3]*1.2,2, ',','.') ?> €</p>
-		<br/>
-	</div>
-
-	<?php if($i%3==2) {
-		echo'</div>';
-	} ?>
-
-
-<?php endfor; 
+	require_once 'db.php';
+	for($i=0 ;$i<count($beerArray) ;$i++){
+		var_dump($beerArray[$i][1]);
+		$sql = "INSERT INTO `beers` (`nom`,`image` ,`description`,`prix`) VALUES (:nom , :image, :description, :prix)";
+		var_dump($sql);
+		$statement = $pdo->prepare($sql);
+		var_dump($statement);
+		$result = $statement->execute([
+						":nom"		=>	$beerArray[$i][0],
+						":image"	=>  $beerArray[$i][1],
+						":description" => $beerArray[$i][2],
+						":prix" => $beerArray[$i][3]]);
+		echo $result;
+	}
 
 ?>
-<a href="PHP/purchase_order.php"> Commander</a>
-<a href="connexion.php"> Connexion</a>
-<a href="inscription.php"> Vous inscrire</a>
 
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Creation_biere</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+
+
+
+</body>
+</html>
