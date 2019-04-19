@@ -19,11 +19,11 @@ require 'connect.php';
 <body>
 	<a href="#menu"> Vers le menu </a><br>
 	<!--
-	-La table commande disposera de 3 colonnes:
-	-id(int)
-	-id_client(int)
-	-ids_product(text)
-	-pTTC(float) -->
+	-La table commande disposera de 4 colonnes:
+		-id(int)
+		-id_client(int)
+		-ids_product(text)
+		-pTTC(float) -->
 	
 	<?php 
 		/* ici il suffit de récupérer le ou les tableaux en bdd correspondants à l'identifiant client, ce tableau contenant id des commandes, id de l'utilisateur, tableau d'id des bières achetées et le montant total.

@@ -1,6 +1,6 @@
 body{
-	background-image: url("../img/437658.jpg");
-	background-repeat: no-repeat;
+	background-image: url("../img/437743.jpg");
+	background-repeat: column;
 	background-size: 100%;
 }
 
@@ -17,8 +17,9 @@ p{
 	padding-top: 10px;
 }
 table{
-
-	border:1px, solid;
+	color:dark-grey;
+	background-color: #c1c1c1c1;
+	border: 1px, solid;
 }
 
 .commande{

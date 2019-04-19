@@ -29,36 +29,6 @@ require "connect.php";
 <body  class="col-12">
 	<a href="#menu"> Vers le menu </a>
 	<br /><br />
-		<!--table>
-			<form method="get" action>
-				<tr><td><label>Nom :</label></td>
-				<td><input type="text" name="nom" placeholder="Doe"required></td></tr>
-				
-				<tr><td><label>Prénom :</label></td>
-				<td><input type="text" name="prenom" placeholder="John"required></td></tr>
-				
-				<tr><td><label>Adresse :</label></td>
-				<td><input type="text" name="adresse" placeholder="15 rue des épices" required></td></tr>
-				
-				<tr><td><label>Code Postal :</label>
-				<td><input type="text" name="zipcode" placeholder="72600" required></td></tr>
-				
-				<tr><td><label>Ville :</label>
-				<td><input type="text" name="ville" placeholder="Le Mans" required></td></tr>
-				
-				<tr><td><label>Pays :</label>
-				<td><input type="text" name="pays" placeholder="France" required></td></tr>
-				
-				<tr><td><label>Téléphone (optionnel):</label>
-				<td><input type="text" name="phone" placeholder="0147200001"></td></tr>
-				
-				<tr><td><label>Mail</label>
-				<td><input type="email" name="mail" placeholder="example@serveur.com" required></td></tr>
-			</form>
-		</table>
-	<button type="submit">Envoyer</button-->
-
-		
 
 	<table id = "commande">
 		<thead><h3> Quantités de commande </h3></thead>
@@ -68,7 +38,7 @@ require "connect.php";
 			<td>Quantité</td>
 			<td>Total</td>
 			<!--td>donne le format du tableau</td>-</tr-->
-	<form type="post" action="commande.php">
+	<form method="post" action="recap_commande.php">
 		<?php 
 		require_once "db.php";
 		$sql = "SELECT * FROM `beers`" ;
@@ -80,7 +50,7 @@ require "connect.php";
 					<tr id="Nom<?=$beer['id']?>"><td><?=$beer["nom"] ?></td>
 					<td id="ht<?=$beer['id']?>"><?=number_format($beer["prix"],2, ',','.') ?>€ </td>
 					<td><?=number_format($beer["prix"]*1.2,2, ',','.') ?>€ </td>
-					<td><input id="quantite<?=$beer['id']?>" type="number" min="0" max="100" value="0" onclick='valeur("quantite<?=$beer['id']?>","<?=$beer['id']?>")'></td>
+					<td><input id="quantite<?=$beer['id']?>" name="quantite<?=$beer['id']?>" type="number" min="0" max="100" value="0" onclick='valeur("quantite<?=$beer['id']?>","<?=$beer['id']?>")'></td>
 					<!-- On veut la valeur dans la case total -->
 					<td id="resultat<?= $beer['id'] ?>" ></td>
 				</div>

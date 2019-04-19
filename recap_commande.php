@@ -1,5 +1,5 @@
 <?php require 'connect.php';
-session_start():
+
 ?>
 
 <!DOCTYPE html>
@@ -29,17 +29,56 @@ session_start():
 	</table>
 	<a href="#menu"> Vers le menu </a>
 	<?php 
-		/*récupérer la liste de bière commandées depuis purchase_order vers tableau mysql commandes tout en affichant les opérations effectuées et les produits achetés*/
+		/*récupérer la liste de bière commandées depuis purchase_order vers ici tout en affichant les opérations effectuées et les produits achetés et envoyer dans tableau mysql commandes*/
+		if(isset($_POST)){
+			$total = 0;
+			require_once "db.php";
+			$sql = "SELECT * FROM `beers`" ;
+				$statement = $pdo->prepare($sql);
+				$statement->execute([$sql]);
+				$beers = $statement->fetchAll();
+ 			foreach ($beers as $beer):
+ 				if($_POST['quantite'.$beer['id']]>0){
+ 					echo $beer['nom'].' ';
+ 					echo number_format($beer['prix'], 2, ',','.').'€ ';
+ 					echo 'x'.$_POST['quantite'.$beer['id']].' ';
+ 					echo 'pour un total de : '.number_format($_POST['quantite'.$beer['id']]*$beer['prix'], 2, ',','.').'€ <br>';
+ 					$total+=$_POST['quantite'.$beer['id']]*$beer['prix'];
+ 				}
+
+ 			endforeach;
+		}
+		echo 'Votre facture totale est de : '.number_format($total, 2, ',','.').'€ <br>';
+		echo 'Vous avez une semaine pour régler ce montant! <br> ';
+		require_once "db.php";
+		$sql = "SELECT * FROM `utilisateurs`" ;
+			$statement = $pdo->prepare($sql);
+			$statement->execute([$sql]);
+			$users = $statement->fetchAll();
+		foreach($users as $user){
+			//boucle sur le tableau users
+			if(($user["mail"]==$mail) && ($user["mail"]!='')){
+				 echo 'Vous serez livré au '.$user["adresse"].' ';
+				 echo $user["code_postal"].' '.$user["ville"].' ';
+				 echo ' sous dix jours après votre paiement';
+
+			}
+		}
+		/*
+		TODO : ajout dans la base de données des commandes lié à l'utilisateurs ['id'] avec les id de bières dans un tableau ? et le total $total
+		$sql = "" ;
+			$statement = $pdo->prepare($sql);
+			$statement->execute([$sql]);
+
+			$sql = "INSERT INTO `commandes` (`id`, `id_client`, `id_biere`, `pTTC`) VALUES (NULL, '5', '7', '$total')
+			";
+									
+									echo "Votre compte a bien été modifié";
+								}*/
+			echo 'Envoyé!';			
 
 
-
-
-
-
-
-
-
-		*/
+		
 	 ?>
 	<nav id="menu">
 		<a href="index.php"> Accueil</a><br>
@@ -58,26 +97,11 @@ session_start():
 
 
 <?php 
+
 /*
-include('donnees.php');
-/*
-var_dump($_GET);
-die;*/
-/*if(isset($_GET['firstname'])) :
 		$totalTTC = 0; ?>
-		<h1 style='text-align: center'>Bonjour <?= $_GET['firstname'] ?> <?= $_GET['lastname'] ?> !</h1>
 		<h3 style='text-align: center'>Voici donc ta confirmation de commande</h3>
 
-		<table style="width: 80%;margin-left:10%; text-align:center;" class="">
-			<thead>
-				<tr>
-					<th>Nom de la bière</th>
-					<th>Prix HT</th>
-					<th>Prix TTC</th>
-					<th>Quantité</th>
-					<th>Total TTC</th>
-				</tr>
-			</thead>
 			<tbody>
 				<?php
 				foreach ($beerArray as $key => $value) :
@@ -107,4 +131,4 @@ die;*/
 			<small>Si vous ne réglez pas sous 10 jours, le prix de votre commande sera majorée.(25%/jours de retard)</small>
 		</p>
 		<p style="text-align:center;"><button><a href="/bondecommande.php">J'en veux encore ! </a></button></p>
-<?php endif; ?>
+<?php endif; ?>*/
