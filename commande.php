@@ -12,6 +12,7 @@
 	<title>Votre commande</title>
 </head>
 <body>
+	<a href="#menu"> Vers le menu </a>
 	<?php 
 		//récupérer la liste de bière commandées
 	 ?>

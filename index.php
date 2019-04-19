@@ -10,7 +10,7 @@
 
 
 <body>
-
+<a href="#menu"> Vers le menu </a>
 <h1 class="text-center">Les bières</h1>
 	<!-- Changement de style de l'affichage des cases du tableau selon i dans la boucle -->
 	<div class="col-12 col-sm-8 col-md-3 offset-0 text-center">
@@ -45,7 +45,7 @@
 
 		<br/>
 	</div>
-	<nav>
+	<nav id="menu">
 
 		<a href="index.php"> Accueil</a><br>
 		<a href="purchase_order.php"> Commander</a><br>
