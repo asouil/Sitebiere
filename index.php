@@ -43,6 +43,7 @@
 		<a href="inscription.php"> Vous inscrire</a><br>
 		<!--si connecté sinon cacher-->
 		<a href="Commandes.php"> Mes commandes</a><br>
+		<a href="mon_compte.php">Mon compte</a><br>
 		<a href="Espace_Client.php">Mon espace</a><br>
 		<a href="deconnexion.php"> Déconnexion</a><br>
 

@@ -9,7 +9,7 @@
 </head>
 <body>
 	<a href="#menu"> Vers le menu </a><br>
-<!-- TODO : contenu du profil -->
+
 <?php
 	require "connect.php";
 	require_once "db.php";
@@ -17,12 +17,11 @@
 		$statement = $pdo->prepare($sql);
 		$statement->execute([$sql]);
 		$users = $statement->fetchAll();
-
-		foreach($users as $user):
-				//boucle sur le tableau users
+		foreach($users as $user){
+			//boucle sur le tableau users
 			if($user["mail"]==$mail){
 				 echo 'Bienvenue '.$user["prenom"].' !<br>';
-?>
+			?>
 				<section>
 				<!-- boucle sur le tableau users -->
 					<article>
@@ -50,14 +49,13 @@
 						</form>
 					</article> 
 			<?php
-			} //fin du if
-		endforeach; 
+			}
+		}
 		?>
 		<!-- fin boucle -->
 			</section>
 
 			<?php
-
 				if(!empty($_POST)){
 					$password = $_POST["password"];
 					$id = $_POST["id"];
@@ -94,8 +92,9 @@
 									echo "Votre compte a bien été modifié";
 								}
 								elseif(!empty($password)){
+
 									if(strlen($password) <= 10 && strlen($password) >= 5){
-										require_once 'db.php';
+										$password=password_hash($password, PASSWORD_BCRYPT);
 										$sql = "UPDATE`utilisateurs` SET `nom`= :nom, `prenom` = :prenom, `password`= :password, `adresse` = :adresse, `code_postal` = :code_postal, `ville` = :ville, `pays` = :pays, `telephone`= :telephone WHERE `utilisateurs`.`id` =:id";
 										$statement = $pdo->prepare($sql);
 										$result = $statement->execute([

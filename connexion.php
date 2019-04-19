@@ -30,7 +30,6 @@ if(!empty($_POST)){
 
 		//on va appeler la db pour connecter l'utilisateur
 		if($user){
-			echo($password);
 			if (password_verify($password, $user["password"])){
 					
 					$_SESSION["connect"] = true;
