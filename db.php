@@ -7,7 +7,7 @@ require 'config.php';
 $dsn = 'mysql:dbname='.$name.';host='.$host.';charset=UTF8';
 
 try {
-	$pdo = new PDO($dsn, $user , $pass);
+	$pdo = new PDO($dsn, $compte , $pass);
 
 } catch (PDOException $e){
 	echo 'Connexion échouée : '. $e->getMessage();
