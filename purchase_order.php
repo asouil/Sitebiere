@@ -18,6 +18,7 @@ require "connect.php";
 	- un bouton pour tout envoyer. */
 //tableau avecle nom de la bière et le prix ht
 ?>
+
 <html>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -79,9 +80,9 @@ require "connect.php";
 					<tr id="Nom<?=$beer['id']?>"><td><?=$beer["nom"] ?></td>
 					<td id="ht<?=$beer['id']?>"><?=number_format($beer["prix"],2, ',','.') ?>€ </td>
 					<td><?=number_format($beer["prix"]*1.2,2, ',','.') ?>€ </td>
-					<td><input id="quantite<?=$beer['id']?>" type="number" min="0" max="100" value="0" onclick='valeur(quantite<?=$beer['id']?>,<?=$beer['id']?>)'></td>
+					<td><input id="quantite<?=$beer['id']?>" type="number" min="0" max="100" value="0" onclick='valeur("quantite<?=$beer['id']?>","<?=$beer['id']?>")'></td>
 					<!-- On veut la valeur dans la case total -->
-					<td id="resultat<?= $beer['id'] ?>"></td>
+					<td id="resultat<?= $beer['id'] ?>" ></td>
 				</div>
 			</tr>
 			<?php endforeach; ?>
@@ -92,12 +93,14 @@ require "connect.php";
 	
 	<nav id="menu">
 		<a href="index.php"> Accueil</a><br>
+		<a href="purchase_order.php"> Commander</a><br>
 		<!--si pas connecté sinon cacher-->
 		<a href="connexion.php"> Connexion</a><br>
 		<a href="inscription.php"> Inscription</a><br>
-		<a href="purchase_order.php"> Commander</a><br>
 		<!--si connecté sinon cacher-->
+		<a href="commandes.php"> Mes commandes</a><br>
 		<a href="mon_compte.php"> Mon compte</a><br>
+		<a href="espace_client.php">Mon historique de commandes</a><br>
 		<a href="deconnexion.php"> Déconnexion</a><br>
 	</nav>
 

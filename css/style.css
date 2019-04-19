@@ -1,3 +1,9 @@
+body{
+	background-image: url("../img/437658.jpg");
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+
 div{
 	padding:30px;
 	justify-content: auto;

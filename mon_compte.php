@@ -1,3 +1,8 @@
+<?php
+	require 'db.php';
+	require 'connect.php';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +16,7 @@
 	<a href="#menu"> Vers le menu </a><br>
 
 <?php
-	require "connect.php";
+
 	require_once "db.php";
 	$sql = "SELECT * FROM `utilisateurs`" ;
 		$statement = $pdo->prepare($sql);
@@ -19,7 +24,7 @@
 		$users = $statement->fetchAll();
 		foreach($users as $user){
 			//boucle sur le tableau users
-			if($user["mail"]==$mail){
+			if(($user["mail"]==$mail) && ($user["mail"]!='')){
 				 echo 'Bienvenue '.$user["prenom"].' !<br>';
 			?>
 				<section>
@@ -68,7 +73,7 @@
 					$telephone=$_POST["telephone"];
 
 					if(!empty($id)){
-						if(!empty($mail)){
+						if(!empty($mail && $nom && $prenom && $adresse && $cp && $ville && $pays)){ //TODO : vérifier que les cas sont bien gérés
 							require_once 'db.php';
 							$sql = "SELECT * FROM utilisateurs WHERE `mail`= ?";
 							$statement = $pdo->prepare($sql);
@@ -119,6 +124,8 @@
 									echo "Veuillez créer un compte";
 									header("Location: inscription.php");
 							}
+						}else{
+							echo "Merci de laisser tous les champs remplis";
 						}
 					}
 				}
@@ -131,8 +138,8 @@
 		<a href="connexion.php"> Connexion</a><br>
 		<a href="inscription.php"> Vous inscrire</a><br>
 		<!--si connecté sinon cacher-->
-		<a href="Commandes.php"> Mes commandes</a><br>
-		<a href="Espace_Client.php">Mon espace</a><br>
+		<a href="commandes.php"> Mes commandes</a><br>
+		<a href="espace_client.php">Mon historique de commandes</a><br>
 		<a href="deconnexion.php"> Déconnexion</a><br>
 	</nav>
 </body>

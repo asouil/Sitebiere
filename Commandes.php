@@ -1,3 +1,10 @@
+<?php
+require 'db.php';
+require 'connect.php';
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>	
@@ -39,7 +46,7 @@
 		<a href="inscription.php"> Vous inscrire</a><br>
 		<!--si connecté sinon cacher-->
 		<a href="mon_compte.php"> Mon compte</a><br>
-		<a href="Espace_Client.php">Mon espace</a><br>
+		<a href="espace_client.php">Mon historique de commandes</a><br>
 		<a href="deconnexion.php"> Déconnexion</a><br>
 
 	</nav>

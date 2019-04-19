@@ -1,7 +1,10 @@
-<!--
+<?php
+require 'db.php';
+require 'connect.php';
+
+?><!--
 -Créer un espace client html5
 -Celui ci présentera:
-	-Une possibilité de modifier ses données personnelle hors adresse mail.
 	-Un tableau affichant le contenu des commandes passé par l’utilisateur.
 -->
 <!DOCTYPE html>
@@ -21,18 +24,44 @@
 	-id_client(int)
 	-ids_product(text)
 	-pTTC(float) -->
+	
+	<?php 
+		/* ici il suffit de récupérer le ou les tableaux en bdd correspondants à l'identifiant client, ce tableau contenant id des commandes, id de l'utilisateur, tableau d'id des bières achetées et le montant total.
+
+		*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	?>
 
 	<nav id="menu">
-
 		<a href="index.php"> Accueil</a><br>
 		<a href="purchase_order.php"> Commander</a><br>
 		<!--si pas connecté sinon cacher-->
+		<a href="connexion.php"> Connexion</a><br>
 		<a href="inscription.php"> Vous inscrire</a><br>
-		<a href="Commandes.php"> Mes commandes</a><br>
 		<!--si connecté sinon cacher-->
-		<a href="mon_compte.php"> Mon compte</a><br>
+		<a href="commandes.php"> Mes commandes</a><br>
+		<a href="mon_compte.php">Mon compte</a><br>
 		<a href="deconnexion.php"> Déconnexion</a><br>
-
 	</nav>
 </body>
 </html>
