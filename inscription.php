@@ -82,24 +82,24 @@ if(!empty($_POST)){
 
 <head>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Création de compte</title>
 
 </head>
 <body>
-	<div class="row">
+	<div class="wrapper">
 		<section class="login-container">
 			<div>
 				<header>
-					<h2 class="text-center">Inscription</h2>
+					<h2>Inscription</h2>
 				</header>
 				<form action="" method="post">
 					<input type="text" name="name" placeholder="Nom" required="required" /><br/>
 					<input type="text" name="forname" placeholder="Prénom" required="required" /><br/>
 					<input type="password" name="password" placeholder="Mot de passe" required="required" /><br/>
-					<input type="password" name="password_verif" placeholder="Confirmez mot de passe"  /><br/>
+					<input type="password" name="password_verif" placeholder="Confirmez le mot de passe"  /><br/>
 					<input type="text" name="adresse" placeholder="Adresse" required="required" /><br/>
 					<input type="text" name="ville" placeholder="Ville" required="required" /><br/>
 					<input type="text" name="cp" placeholder="Code Postal" required="required" /><br/>

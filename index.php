@@ -9,11 +9,11 @@
 </head>
 
 
-<body class="col-12">
+<body>
 <a id="to_nav" href="#menu"> Vers le menu </a>
 <h1 class="text-center">Les bières</h1>
 	<!-- Changement de style de l'affichage des cases du tableau selon i dans la boucle -->
-	<div class="col-12 col-sm-8 col-md-6 offset-0 align-center text-center">
+	<div>
 			<?php
 			/* créer ma page d'accueil */
 			require_once "db.php";
@@ -23,7 +23,7 @@
 				$beers = $statement->fetchAll();
 	 			foreach ($beers as $beer){
 			?>
-					<div class="row col-md-12">
+					<div>
 						<table>
 							<tr><td><h2 class="text-center"><?=$beer["nom"] ?></h2></td></tr>
 							<tr><td><img src= '<?=$beer["image"] ?>' alt= '<?=$beer["image"] ?>' ></td></tr>
