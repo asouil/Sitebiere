@@ -1,12 +1,43 @@
+
+/* -- Reset -- */
+
+html{
+
+	box-sizing: border-box;
+
+}
+
+*,*:before, *:after{
+
+	box-sizing: inherit;
+
+}
+
+body{
+
+	background-color: white;
+	font-family: Helvetica, sans-serif;
+
+}
+
+/* -- Mise en page -- */
 body{
 	background-image: url("../img/437743.jpg");
 	background-repeat: column;
-	background-size: 100%;
+	background-position:absolute;
+	background-attachment:fixed;
+	background-size: stretch;
+    text-align:center;
+    margin-bottom:15px;
+    font-family:Trebuchet MS, sans-serif;
+    font-size:22px;
+    margin-left:15px;
 }
 
 div{
 	padding:30px;
-	justify-content: auto;
+	border-color: black;
+
 }
 
 p{
@@ -16,20 +47,85 @@ p{
 	padding-left:30px;
 	padding-top: 10px;
 }
+
+/*tableau */
+
 table{
-	color:dark-grey;
+	color:black;
 	background-color: #c1c1c1c1;
-	border: 1px, solid;
+	border: 1px, solid, black;
+	border-spacing: 2px;
+	text-align: center;
+	box-shadow: 3px;
+	margin: 0 auto;
+	box-sizing: border-box;
+	border-radius:10px;
+
+}
+
+button{
+	border-radius:20px;
+}
+
+tr{
+	align-self: center;
+
+}
+
+
+img{
+
+	width:30%; 
+	
 }
 
 .commande{
 	border-style: solid;
 }
-nav{
 
+/*menu*/
+nav{
+    border-top:5px solid red;
 	font-family: 'PT-Serif', Serif;
 	font-style: italic;
 	text-align: center;
 	font-size:14px;
+	text-decoration: none;
+	background-color: #E6E6FA;
+	margin-top:20px;
+}
+#to_nav{
+
+	background-color: rgba(255,245,238,0.5);
+	padding-right:50px;
+	padding-left:50px;
+
 }
 
+
+
+a:link {
+ color: green;
+ }
+a:visited {
+ color: green;
+ }
+a:hover {
+	color: purple;
+	text-decoration:none;
+}
+
+label{
+	color:#4169E1;
+	background-color: rgba(255,245,238,0.5);
+	padding-right:30px;
+	padding-left:30px;
+}
+input{
+	padding-right:15px;
+	margin-left:-10px;
+}
+div{
+	padding-right: 15px;
+	padding-left:15px;
+}

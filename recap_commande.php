@@ -13,7 +13,7 @@
 	<title>Votre commande</title>
 </head>
 <body>
-		<a href="#menu"> Vers le menu </a><br>
+		<a id="to_nav" href="#menu"> Vers le menu </a><br>
 
 	<?php 
 		$total = 0;

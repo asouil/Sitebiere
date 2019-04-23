@@ -13,7 +13,7 @@
 	<title>Mon compte</title>
 </head>
 <body>
-	<a href="#menu"> Vers le menu </a><br>
+	<a id="to_nav" href="#menu"> Vers le menu </a><br>
 
 <?php
 
@@ -32,7 +32,6 @@
 					<article>
 						<p> Ici vous pourrez modifier vos informations.<p><br>
 						<form method="POST" action="mon_compte.php">
-							
 							<label>Votre nom</label><br>
 							<input type="text" name="nom" value="<?= $user["nom"] ?>"><br>
 							<label>Votre prénom</label><br>
@@ -95,6 +94,7 @@
 											":id"		=> $id
 											]);
 									echo "Votre compte a bien été modifié";
+									header("Location: mon_compte.php");
 								}
 								elseif(!empty($password)){
 
@@ -129,7 +129,9 @@
 						}
 					}
 				}
+
 			?>
+
 
 	<nav id="menu">
 		<a href="index.php"> Accueil</a><br>

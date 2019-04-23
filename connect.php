@@ -18,3 +18,4 @@ if (isset($_SESSION["mail"])) {
 }else{
 	$mail = "";
 }
+?>

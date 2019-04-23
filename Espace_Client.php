@@ -17,7 +17,7 @@ require 'connect.php';
 	<title>Espace Client</title>
 </head>
 <body>
-	<a href="#menu"> Vers le menu </a><br>
+	<a id="to_nav" href="#menu"> Vers le menu </a><br>
 	<h2> Votre historique de commande </h2>
 	
 <?php
@@ -34,7 +34,7 @@ require 'connect.php';
 			
 	foreach($commandes as $commande){
 		$prix = $commande["pTTC"];
-		$idbiere = unserialize($commande["id_biere"]);
+		$contenu = unserialize($commande["id_biere"]);
 		$sql2 = "SELECT * FROM `utilisateurs`" ;
 		$state = $pdo->prepare($sql2);
 		$state->execute([$sql2]);
@@ -45,8 +45,8 @@ require 'connect.php';
 			if($user["id"]==$commande['id_client']){
 				$nomCo=$user['nom'];
 				$prenomCo=$user['prenom'];
-					//parcourt des bières pour sortir les bières achetées pour cet utilisateur dans le tableau
-				$sqlb = "SELECT * FROM `beers`" ;
+					
+				/*$sqlb = "SELECT * FROM `beers`" ;
 				$stat = $pdo->prepare($sqlb);
 				$stat->execute([$sqlb]);
 				$bieres = $stat->fetchAll();	
@@ -56,16 +56,20 @@ require 'connect.php';
 							array_push($contenu, $biere['nom']);
 						}
 					}
-				}
+				}*/
+
+				echo("<table><thead>Votre Commande ");
+				echo("n°:".$commande["id"]).' </thead><tr>';
+				for($i=0;$i<count($contenu);$i++){
+					echo('<tr><td>référence de bière '.$contenu[$i].' </td></tr>');
+					//SELECT FROM `beers` WHERE `id`= $contenu[$i]
+					//	écrire bière concernée
+				}	
 			}
+
 		}
 		$quantite= count($contenu);
-		echo("Votre Commande ");
-		echo("n°:".$commande["id"]).' ';
-		echo "pour un montant de ".number_format($prix,2,',','.').'€ contenait '.$quantite.' types de bières.<br>';
-		for($j=0;$j<count($contenu);$j++){
-			echo($contenu[$j].' <br>');
-		}
+		echo "<tr><td>Vous avez dépensé un montant de ".number_format($prix,2,',','.').'€ pour '.$quantite.' type(s) de bières.</td></tr></table>';
 
 	}
 
