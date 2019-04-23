@@ -18,19 +18,51 @@ require 'connect.php';
 </head>
 <body>
 	<a href="#menu"> Vers le menu </a><br>
-	<!--
+	
+	<?php
+	require_once "db.php";
+		$sql = "SELECT * FROM `commandes`" ;
+			$statement = $pdo->prepare($sql);
+			$statement->execute([$sql]);
+			$commandes = $statement->fetchAll();
+			foreach($commandes as $commande){
+				$sql2 = "SELECT * FROM `utilisateurs`" ;
+				$state = $pdo->prepare($sql2);
+				$state->execute([$sql2]);
+				$users = $state->fetchAll();
+				foreach($users as $user){
+					//boucle sur le tableau users
+					if($user["id"]==$commande['id_client']){
+						$nomCo=$user['nom'];
+						$prenomCo=$user['prenom'];
+					}
+				$sqlb = "SELECT * FROM `beers`" ;
+				$stat = $pdo->prepare($sqlb);
+				$stat->execute([$sqlb]);
+				$bieres = $stat->fetchAll();
+
+				
+
+
+			/*on doit avoir l'utilisateur energistré quelque part pour reprendre son id
+			if(//user['id']==commandes.user[id]) > afficher
+		* ici on veut récupérer le ou les tableaux en bdd correspondants à l'identifiant client, ce tableau contenant id des commandes, id de l'utilisateur, tableau d'id des bières achetées et le montant total.
+
+		
+		TODO : récupérer les commandes depuis tableau mySQL et les afficher dans un tableau
+
+	*/
+			}
+		//}
+		?>
+		<!--
 	-La table commande disposera de 4 colonnes:
 		-id(int)
 		-id_client(int)
-		-ids_product(text)
+		-ids_product(tableau)
 		-pTTC(float) -->
 	
 	<?php 
-		/* ici il suffit de récupérer le ou les tableaux en bdd correspondants à l'identifiant client, ce tableau contenant id des commandes, id de l'utilisateur, tableau d'id des bières achetées et le montant total.
-
-		*/
-
-
 
 
 
@@ -59,7 +91,6 @@ require 'connect.php';
 		<a href="connexion.php"> Connexion</a><br>
 		<a href="inscription.php"> Vous inscrire</a><br>
 		<!--si connecté sinon cacher-->
-		<a href="commandes.php"> Mes commandes</a><br>
 		<a href="mon_compte.php">Mon compte</a><br>
 		<a href="deconnexion.php"> Déconnexion</a><br>
 	</nav>

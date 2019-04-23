@@ -29,9 +29,11 @@
 	</table>
 	<a href="#menu"> Vers le menu </a>
 	<?php 
+		$total = 0;
+		$array =[];
+		$id;
 		/*récupérer la liste de bière commandées depuis purchase_order vers ici tout en affichant les opérations effectuées et les produits achetés et envoyer dans tableau mysql commandes*/
 		if(isset($_POST)){
-			$total = 0;
 			require_once "db.php";
 			$sql = "SELECT * FROM `beers`" ;
 				$statement = $pdo->prepare($sql);
@@ -44,41 +46,43 @@
  					echo 'x'.$_POST['quantite'.$beer['id']].' ';
  					echo 'pour un total de : '.number_format($_POST['quantite'.$beer['id']]*$beer['prix'], 2, ',','.').'€ <br>';
  					$total+=$_POST['quantite'.$beer['id']]*$beer['prix'];
+ 					$array+=[$beer['id']];
  				}
 
  			endforeach;
 		}
 		echo 'Votre facture totale est de : '.number_format($total, 2, ',','.').'€ <br>';
 		echo 'Vous avez une semaine pour régler ce montant! <br> ';
+		
 		require_once "db.php";
 		$sql = "SELECT * FROM `utilisateurs`" ;
-			$statement = $pdo->prepare($sql);
-			$statement->execute([$sql]);
-			$users = $statement->fetchAll();
+		$statement = $pdo->prepare($sql);
+		$statement->execute([$sql]);
+		$users = $statement->fetchAll();
+		
 		foreach($users as $user){
 			//boucle sur le tableau users
 			if(($user["mail"]==$mail) && ($user["mail"]!='')){
 				 echo 'Vous serez livré au '.$user["adresse"].' ';
 				 echo $user["code_postal"].' '.$user["ville"].' ';
 				 echo ' sous dix jours après votre paiement';
-
+				 $id=$user['id'];
 			}
 		}
 		/*
 		TODO : ajout dans la base de données des commandes lié à l'utilisateurs ['id'] avec les id de bières dans un tableau ? et le total $total
-		$sql = "" ;
+				serialize ?*/
+		$sqldata =serialize($array);
+		$sql = "INSERT INTO `commandes` (`id_client`, `id_biere`, `pTTC`) VALUES (:id_client, :id_biere, :pTTC)"; ;
 			$statement = $pdo->prepare($sql);
-			$statement->execute([$sql]);
-
-			$sql = "INSERT INTO `commandes` (`id`, `id_client`, `id_biere`, `pTTC`) VALUES (NULL, '5', '7', '$total')
-			";
-									
-									echo "Votre compte a bien été modifié";
-								}*/
+			$statement->execute([
+						':id_biere'		=>$sqldata,
+						':id_client'	=>$id,
+						':pTTC'			=>$total
+					]);
+			echo "Votre compte a bien été modifié";
 			echo 'Envoyé!';			
 
-
-		
 	 ?>
 	<nav id="menu">
 		<a href="index.php"> Accueil</a><br>
