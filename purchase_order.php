@@ -68,7 +68,6 @@ require "connect.php";
 		<a href="connexion.php"> Connexion</a><br>
 		<a href="inscription.php"> Inscription</a><br>
 		<!--si connecté sinon cacher-->
-		<a href="commandes.php"> Mes commandes</a><br>
 		<a href="mon_compte.php"> Mon compte</a><br>
 		<a href="espace_client.php">Mon historique de commandes</a><br>
 		<a href="deconnexion.php"> Déconnexion</a><br>

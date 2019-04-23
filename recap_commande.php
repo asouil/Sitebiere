@@ -13,21 +13,8 @@
 	<title>Votre commande</title>
 </head>
 <body>
-	<table id = "commande">
-		<thead><h3> Récapitulatif de commande </h3></thead>
-		<tr><td>Nom de la Bière</td>
-			<td>Prix HT</td>
-			<td>Prix TTC</td>
-			<td>Quantité</td>
-			<td>Total</td>
-					<tr></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</div>
-			</tr>
-	</table>
-	<a href="#menu"> Vers le menu </a>
+		<a href="#menu"> Vers le menu </a><br>
+
 	<?php 
 		$total = 0;
 		$array =[];
@@ -46,7 +33,7 @@
  					echo 'x'.$_POST['quantite'.$beer['id']].' ';
  					echo 'pour un total de : '.number_format($_POST['quantite'.$beer['id']]*$beer['prix'], 2, ',','.').'€ <br>';
  					$total+=$_POST['quantite'.$beer['id']]*$beer['prix'];
- 					$array+=[$beer['id']];
+ 					array_push($array,$beer['id']);
  				}
 
  			endforeach;
@@ -65,14 +52,14 @@
 			if(($user["mail"]==$mail) && ($user["mail"]!='')){
 				 echo 'Vous serez livré au '.$user["adresse"].' ';
 				 echo $user["code_postal"].' '.$user["ville"].' ';
-				 echo ' sous dix jours après votre paiement';
+				 echo ' sous dix jours après votre paiement.';
 				 $id=$user['id'];
 			}
 		}
 		/*
 		TODO : ajout dans la base de données des commandes lié à l'utilisateurs ['id'] avec les id de bières dans un tableau ? et le total $total
 				serialize ?*/
-		$sqldata =serialize($array);
+		$sqldata = serialize($array);
 		$sql = "INSERT INTO `commandes` (`id_client`, `id_biere`, `pTTC`) VALUES (:id_client, :id_biere, :pTTC)"; ;
 			$statement = $pdo->prepare($sql);
 			$statement->execute([
@@ -80,9 +67,6 @@
 						':id_client'	=>$id,
 						':pTTC'			=>$total
 					]);
-			echo "Votre compte a bien été modifié";
-			echo 'Envoyé!';			
-
 	 ?>
 	<nav id="menu">
 		<a href="index.php"> Accueil</a><br>
@@ -91,7 +75,7 @@
 		<a href="connexion.php"> Connexion</a><br>
 		<a href="inscription.php"> Vous inscrire</a><br>
 		<!--si connecté sinon cacher-->
-		<a href="commandes.php"> Mes commandes</a><br>
+		<a href="mon_compte.php"> Mon compte</a><br>
 		<a href="espace_client.php">Mon historique de commandes</a><br>
 		<a href="deconnexion.php"> Déconnexion</a><br>
 	</nav>
