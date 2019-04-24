@@ -83,9 +83,17 @@ require 'connect.php';
 	<nav id="menu">
 		<a href="index.php"> Accueil</a><br>
 		<a href="purchase_order.php"> Commander</a><br>
-		<!--si connecté sinon cacher-->
-		<a href="mon_compte.php">Mon compte</a><br>
-		<a href="deconnexion.php"> Déconnexion</a><br>
+		<?php 
+		if(empty($_SESSION["connect"])) { ?>
+			<!--si pas connecté sinon cacher -->
+			<a href="connexion.php"> Connexion</a><br>
+			<a href="inscription.php"> Vous inscrire</a><br>
+		<?php } else if($_SESSION["connect"]) { ?>
+			<!--si connecté sinon cacher-->
+			<a href="mon_compte.php"> Mon compte</a><br>
+			<a href="deconnexion.php"> Déconnexion</a><br>
+		<?php  } ?>
 	</nav>
+
 </body>
 </html>

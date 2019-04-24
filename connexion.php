@@ -31,7 +31,6 @@ if(!empty($_POST)){
 		//on va appeler la db pour connecter l'utilisateur
 		if($user){
 			if (password_verify($password, $user["password"])){
-					
 					$_SESSION["connect"] = true;
 					$_SESSION["mail"] = $user["mail"];
 					header("Location: index.php");

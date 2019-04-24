@@ -15,6 +15,7 @@
 	<!-- Changement de style de l'affichage des cases du tableau selon i dans la boucle -->
 	<div>
 			<?php
+			session_start();
 			/* créer ma page d'accueil */
 			require_once "db.php";
 			$sql = "SELECT * FROM `beers`" ;
@@ -39,15 +40,19 @@
 	</div>
 
 	<nav id="menu">
+		<a href="index.php"> Accueil</a><br>
 		<a href="purchase_order.php"> Commander</a><br>
-		<!--si pas connecté sinon cacher-->
-		<a href="connexion.php"> Connexion</a><br>
-		<a href="inscription.php"> Vous inscrire</a><br>
-		<!--si connecté sinon cacher-->
-		<a href="mon_compte.php">Mon compte</a><br>
-		<a href="espace_client.php">Mes commandes</a><br>
-		<a href="deconnexion.php"> Déconnexion</a><br>
-
+		<?php 
+		if(empty($_SESSION["connect"])) { ?>
+			<!--si pas connecté sinon cacher -->
+			<a href="connexion.php"> Connexion</a><br>
+			<a href="inscription.php"> Vous inscrire</a><br>
+		<?php } else if($_SESSION["connect"]) { ?>
+			<!--si connecté sinon cacher-->
+			<a href="mon_compte.php"> Mon compte</a><br>
+			<a href="espace_client.php">Mon historique de commandes</a><br>
+			<a href="deconnexion.php"> Déconnexion</a><br>
+		<?php  } ?>
 	</nav>
 
 </body>

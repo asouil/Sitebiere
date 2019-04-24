@@ -71,52 +71,22 @@
 	<nav id="menu">
 		<a href="index.php"> Accueil</a><br>
 		<a href="purchase_order.php"> Commander</a><br>
-		<!--si pas connecté sinon cacher-->
-		<a href="connexion.php"> Connexion</a><br>
-		<a href="inscription.php"> Vous inscrire</a><br>
-		<!--si connecté sinon cacher-->
-		<a href="mon_compte.php"> Mon compte</a><br>
-		<a href="espace_client.php">Mon historique de commandes</a><br>
-		<a href="deconnexion.php"> Déconnexion</a><br>
+		<?php 
+		if(empty($_SESSION["connect"])) { ?>
+			<!--si pas connecté sinon cacher -->
+			<a href="connexion.php"> Connexion</a><br>
+			<a href="inscription.php"> Vous inscrire</a><br>
+		<?php } else if($_SESSION["connect"]) { ?>
+			<!--si connecté sinon cacher-->
+			<a href="mon_compte.php"> Mon compte</a><br>
+			<a href="espace_client.php">Mon historique de commandes</a><br>
+			<a href="deconnexion.php"> Déconnexion</a><br>
+		<?php  } ?>
 	</nav>
+
 
 </body>
 </html>
 
 
 <?php 
-
-/*
-		$totalTTC = 0; ?>
-		<h3 style='text-align: center'>Voici donc ta confirmation de commande</h3>
-
-			<tbody>
-				<?php
-				foreach ($beerArray as $key => $value) :
-					if($_GET['quantity'][$key] > 0) : ?>
-						<tr>
-							<td><?= $value[0] ?></td>
-							<td><?= number_format($value[3], 2, ',', '.')?>€</td>
-							<td><?= number_format($value[3] * $tva, 2, ',', '.') ?>€</td>
-							<td><?= $_GET['quantity'][$key] ?></td>
-							<td><?= number_format(($value[3] * $tva)*$_GET['quantity'][$key], 2, ',', '.') ?>€</td>
-						</tr>
-						<?php
-							$totalTTC += ($value[3] * $tva)*$_GET['quantity'][$key];
-					endif ;
-				endforeach; ?>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td><strong><?= number_format($totalTTC, 2, ',', '.') ?>€</strong></td>
-				</tr>
-			</tbody>
-		</table>
-		<p style="text-align: center;">Celle-ci vous sera livrée au <?= $_GET['address'] ?> <?= $_GET['zipcode'] ?> <?= $_GET['city'] ?> sous deux jours</p>
-		<p style="text-align:center;">
-			<small>Si vous ne réglez pas sous 10 jours, le prix de votre commande sera majorée.(25%/jours de retard)</small>
-		</p>
-		<p style="text-align:center;"><button><a href="/bondecommande.php">J'en veux encore ! </a></button></p>
-<?php endif; ?>*/
