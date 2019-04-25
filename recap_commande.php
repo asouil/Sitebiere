@@ -6,8 +6,8 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<title>Votre commande</title>
@@ -26,9 +26,11 @@
 				$statement = $pdo->prepare($sql);
 				$statement->execute([$sql]);
 				$beers = $statement->fetchAll();
+				$quantity=0;
  			foreach ($beers as $beer):
  				if($_POST['quantite'.$beer['id']]>0){
  					echo $beer['nom'].' ';
+ 					$quantity+=$_POST['quantite'.$beer['id']];
  					echo number_format($beer['prix'], 2, ',','.').'€ ';
  					echo 'x'.$_POST['quantite'.$beer['id']].' ';
  					echo 'pour un total de : '.number_format($_POST['quantite'.$beer['id']]*$beer['prix'], 2, ',','.').'€ <br>';

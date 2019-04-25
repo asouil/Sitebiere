@@ -6,8 +6,8 @@ require "connect.php";
 <html>
 <head>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body class="col-12">
@@ -81,7 +81,7 @@ require "connect.php";
 
 
 <br /><br /><br /><br />
-<script type="text/javascript" src="./js/script.js"></script>
+<script type="text/javascript" src="./assets/js/script.js"></script>
 </body>
 </html>
 
