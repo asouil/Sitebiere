@@ -1,59 +1,51 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="./assets/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Bières en vente</title>
-</head>
+<?php 
+require_once 'includes/function.php';
 
+if(isset($_GET["deconnect"])){
+	if (session_status() != PHP_SESSION_ACTIVE){
+	session_start();
+	}
+	unset($_SESSION["auth"]);
+}
 
-<body>
-<a id="to_nav" href="#menu"> Vers le menu </a>
-<h1 class="text-center">Les bières</h1>
-	<!-- Changement de style de l'affichage des cases du tableau selon i dans la boucle -->
-	<div>
-			<?php
-			session_start();
-			/* créer ma page d'accueil */
-			require_once "db.php";
-			$sql = "SELECT * FROM `beers`" ;
-				$statement = $pdo->prepare($sql);
-				$statement->execute([$sql]);
-				$beers = $statement->fetchAll();
-	 			foreach ($beers as $beer){
-			?>
-					<div>
-						<table>
-							<tr><td><h2 class="text-center"><?=$beer["nom"] ?></h2></td></tr>
-							<tr><td><img src= '<?=$beer["image"] ?>' alt= '<?=$beer["image"] ?>' ></td></tr>
-							<tr><td><?= substr ($beer["description"], 0 , 150).'[...]' ?></td></tr>
-							<tr><td><?=number_format($beer["prix"],2, ',','.') ?>€  HT </td></tr>
-							<tr><td><?=number_format($beer["prix"]*1.2,2, ',','.') ?> € TTC</td></tr>
-						</table>
-					</div>
-				<?php
-				}
-				?>
-		<br/>
-	</div>
-
-	<nav id="menu">
-		<a href="index.php"> Accueil</a><br>
-		<a href="purchase_order.php"> Commander</a><br>
-		<?php 
-		if(empty($_SESSION["connect"])) { ?>
-			<!--si pas connecté sinon cacher -->
-			<a href="connexion.php"> Connexion</a><br>
-			<a href="inscription.php"> Vous inscrire</a><br>
-		<?php } else if($_SESSION["connect"]) { ?>
-			<!--si connecté sinon cacher-->
-			<a href="mon_compte.php"> Mon compte</a><br>
-			<a href="espace_client.php"> Mon historique de commandes </a><br>
-			<a href="deconnexion.php"> Déconnexion</a><br>
-		<?php  } ?>
-	</nav>
-
-</body>
-</html>
+include 'includes/header.php';
+?>
+	<section class="sectionHome">
+		<h1>Bread Beer Shop</h1>
+		<h2>Welcome!</h2>
+		<article class="articleHome">
+			<div>
+				<img src="<?= uri("assets/img/St._Patricks_Day_green_beer_shamrock.jpg") ?>" alt="St._Patricks_Day_green_beer">
+			</div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br />
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</article>
+		<article class="articleHome">
+			<div>
+				<img src="<?= uri("assets/img/St._Patricks_Day_green_beer_shamrock.jpg") ?>" alt="St._Patricks_Day_green_beer">
+			</div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br />
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</article>
+	</section>
+<?php include 'includes/footer.php'; ?>

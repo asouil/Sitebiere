@@ -1,8 +1,7 @@
 <?php 
-
-$beerArray = [
+	$beerArray = [
 		[
-			'La Chouffe Blonde D\'ardenne',
+			'La Chouffe',
 			'https://www.beerwulf.com/globalassets/catalog/beerwulf/beers/la-chouffe-blonde-d-ardenne_opt.png?h=500&rev=899257661',
 			'Bière dorée légèrement trouble à mousse dense, avec un parfum épicé aux notes d’agrumes et de coriandre qui ressortent également au goût.',
 			1.91
@@ -20,13 +19,13 @@ $beerArray = [
 			2.24
 		],
 		[
-			'Delirium Tremens',
+			'Tremens',
 			'https://www.beerwulf.com/globalassets/catalog/beerwulf/beers/blond/delirium_tremens_2.png?h=500&rev=204392068',
 			'Bière dorée, claire à la mousse blanche pleine. Bière belge classique fortement gazéifiée et alcoolisée à la levure fruitée, arrière-goût doux.',
 			2.08
 		],
 		[
-			'Delirium Nocturnum',
+			'Nocturnum',
 			'https://www.beerwulf.com/globalassets/catalog/beerwulf/beers/delirium_nocturnum.png?h=500&rev=1038477262',
 			'Une bière rouge foncée brassée selon la tradition belge: à la fois forte et accessible. Des saveurs de fruits secs, de caramel et chocolat. Légèrement sucrée avec une touche épicée (réglisse et coriandre). La finale en bouche est chaude et agréable.',
 			2.24
@@ -56,4 +55,5 @@ $beerArray = [
 			1.57
 		]
 	];
-?>
+
+	$tva = 1.2;
