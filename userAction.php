@@ -103,14 +103,4 @@ echo 	'<h1>Inscription</h1>'.
   		'</form>';
 
 
-
-
-
-
-
-
-
 require 'includes/footer.php';
-
-
-

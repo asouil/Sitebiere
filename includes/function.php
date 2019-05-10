@@ -6,16 +6,42 @@ require_once 'config.php';
 *
 * @return string
 */
+//function uri($cible="")//:string
+//{
+//	global $racine; //Permet de récupérer une variable externe à la fonction
+//	$uri = "http://".$_SERVER['HTTP_HOST']; 
+//	$folder = "";
+//	if(!$racine) {
+//		$folder = basename(dirname(dirname(__FILE__))).'/'; //Dossier courant
+//	}
+//	return $uri.'/'.$folder.$cible;
+//}
+define('_ENV_', 'dev');
+//putenv('modenv'='prod');
+/*trouver comment modifier les style.mini.css et script.mini.js*/
+
 function uri($cible="")//:string
 {
-	global $racine; //Permet de récupérer une variable externe à la fonction
-	$uri = "http://".$_SERVER['HTTP_HOST']; 
-	$folder = "";
-	if(!$racine) {
-		$folder = basename(dirname(dirname(__FILE__))).'/'; //Dossier courant
+
+	$cibles=explode('.', $cible);
+	if(count($cibles)==2){
+		$ext= ['css','js'];
+		if(in_array($cibles[1], $ext)){
+			if("_ENV_"!="dev"){
+				$mini= ".mini.";
+			}
+			$cible=$cibles[0].$mini.$cible[1];			
+		}
+		
+	}else{
+		$cible=$cibles[0];
 	}
-	return $uri.'/'.$folder.$cible;
+
+	$uri = "http://".$_SERVER['HTTP_HOST'];
+	$folder = basename(dirname(dirname(__FILE__)));
+	return $uri.'/'.$folder.'/'.$cibles[0];
 }
+//uri("style.css")
 
 
 /**
@@ -109,7 +135,7 @@ function userConnect($mail, $password, $verify=false){//:boolean|void
 					session_start();
 				}
 			$_SESSION['auth'] = false;
-			header('location: login.php');
+			header('location: p=?login.php');
 			//TODO : err pas connecté
 		}
 
@@ -131,7 +157,7 @@ function userOnly($verify=false){//:array|void|boolean
 			return false;
 		//exit();
 		}
-		header('location: login.php');
+		header('location: p=?login.php');
 		exit();
 	}
 	return $_SESSION["auth"];

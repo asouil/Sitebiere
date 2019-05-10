@@ -75,4 +75,17 @@ include 'includes/header.php';
 		<button type="submit">COMMANDER</button>
 	</form>
 
-<?php include 'includes/footer.php'; ?>
+<?php include 'includes/footer.php'; 
+
+/*		<div class="form_row">
+			<?= input("nom", "NOM", "", true).input("firstname", "PRENOM","", true).
+			input("address", "ADRESSE","", true); ?>
+		</div>
+		<div class="form_row">
+			<?= input("zipCode", "Code Postal","", true).; ?>
+		</div>
+
+			input("city", "VILLE","", true).input("", "","", true);
+			*/
+?>
+

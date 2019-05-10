@@ -7,15 +7,27 @@ if(isset($_GET["deconnect"])){
 	}
 	unset($_SESSION["auth"]);
 }
+if(isset($_GET["p"])){
+	switch ($_GET["p"]){
+		case 'login':
+			require "login.php";
+			break;
+		case 'register':
+			require 'userAction.php';
+			break;
+	}
+}
+
 
 include 'includes/header.php';
+
 ?>
 	<section class="sectionHome">
 		<h1>Bread Beer Shop</h1>
 		<h2>Welcome!</h2>
 		<article class="articleHome">
 			<div>
-				<img src="<?= uri("assets/img/St._Patricks_Day_green_beer_shamrock.jpg") ?>" alt="St._Patricks_Day_green_beer">
+				<img src="<?= uri("assets/img/StPatricksDaygreenbeershamrock.jpg") ?>" alt="StPatricksDaygreenbeer">
 			</div>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -32,7 +44,7 @@ include 'includes/header.php';
 		</article>
 		<article class="articleHome">
 			<div>
-				<img src="<?= uri("assets/img/St._Patricks_Day_green_beer_shamrock.jpg") ?>" alt="St._Patricks_Day_green_beer">
+				<img src="<?= uri("assets/img/StPatricksDaygreenbeershamrock.jpg") ?>" alt="StPatricksDaygreenbeer">
 			</div>
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -48,4 +60,4 @@ include 'includes/header.php';
 			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 		</article>
 	</section>
-<?php include 'includes/footer.php'; ?>
+<?php include 'includes/footer.php'; 

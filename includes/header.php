@@ -20,9 +20,10 @@ $connect = userOnly(true);
 				<?php if($connect): ?>
 					<li><a href="<?= uri("purchase_order.php") ?>">Bon de commande</a></li>
 					<li><a href="<?= uri("profil.php") ?>">profil</a></li>
-					<li><a href="<?= uri("index.php?deconnect") ?>">deconnexion</a></li>
+					<li><a href="<?= uri("includes\deconnect.php") ?>">deconnexion</a></li>
 				<?php else: ?>
 				<li><a href="<?= uri("login.php") ?>">Connexion</a></li>
+				<li><a href="<?= uri("userAction.php") ?>">Inscription</a></li>
 				<?php endif; ?> 
 				<li><a href="<?= uri("contact.php") ?>">Contact</a></li>
 			</ul>

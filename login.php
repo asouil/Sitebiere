@@ -25,12 +25,4 @@ echo 	'<h1>login</h1>'.
   		"<button type=\"submit\">Envoyer</button>".
   		'</form>';
 
-
-
-
-
-
-
-
-
 require 'includes/footer.php';
