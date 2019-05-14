@@ -2,12 +2,6 @@
 require_once 'includes/function.php';
 
 
-// foreach ($_POST as $key => $value) {
-// 	$$key = $value;
-//  c'est égale a :
-//  $lastname = $value;
-// }
-
 if(!empty($_POST)){
 	if(	isset($_POST["lastname"]) && !empty($_POST["lastname"]) &&
 		isset($_POST["firstname"]) && !empty($_POST["firstname"]) &&
@@ -24,25 +18,25 @@ if(!empty($_POST)){
 	){
 		
 		if(
-			( 	filter_var($_POST["mail"], FILTER_VALIDATE_EMAIL) && 
+			( filter_var($_POST["mail"], FILTER_VALIDATE_EMAIL) && 
 				$_POST["mail"] == $_POST["mailVerify"]
 			) &&
 			( $_POST["password"] == $_POST["passwordVerify"])
 		){
 
-			$sql = "SELECT * FROM utilisaeurs WHERE `mail`= ?";
+			$sql = "SELECT * FROM utilisateurs WHERE `mail`= ?";
 			$pdo = getDB($dbuser, $dbpassword, $dbhost,$dbname);
 			$statement = $pdo->prepare($sql);
 			$statement->execute(
-				[
-					htmlspecialchars($_POST["mail"])
-				]
+				[	htmlspecialchars($_POST["mail"])	]
 			);
 			$user = $statement->fetch();
-		
+
 			if(!$user){
+				// Génération aléatoire d'une clé
+				$cle = md5(microtime(TRUE)*100000);
 				$password = password_hash(htmlspecialchars($_POST["password"]), PASSWORD_BCRYPT);
-				$sql = "INSERT INTO `utilisateurs` (`nom`, `prenom`, `adresse`, `code_postal`, `ville`, `pays`, `telephone`, `mail`, `password`) VALUES (
+				$sql = "INSERT INTO `utilisateurs` (`nom`, `prenom`, `adresse`, `code_postal`, `ville`, `pays`, `telephone`, `mail`, `password`, `cle`) VALUES (
 				 :nom,				 
 				 :prenom,
 				 :adresse,
@@ -51,24 +45,48 @@ if(!empty($_POST)){
 				 :pays,
 				 :telephone,
 				 :mail,
-				 :password)
+				 :password,
+				 :cle)
 				 ";
 				$statement = $pdo->prepare($sql);
 				$result = $statement->execute([
-					":nom"		=> htmlspecialchars($_POST["lastname"]),
-					":prenom"	=> htmlspecialchars($_POST["firstname"]),
+					":nom"			=> htmlspecialchars($_POST["lastname"]),
+					":prenom"		=> htmlspecialchars($_POST["firstname"]),
 					":adresse"		=> htmlspecialchars($_POST["address"]),
-					":code_postal"		=> htmlspecialchars($_POST["zipCode"]),
-					":ville"			=> htmlspecialchars($_POST["city"]),
-					":pays"		=> htmlspecialchars($_POST["country"]),
-					":telephone"		=> htmlspecialchars($_POST["phone"]),
+					":code_postal"	=> htmlspecialchars($_POST["zipCode"]),
+					":ville"		=> htmlspecialchars($_POST["city"]),
+					":pays"			=> htmlspecialchars($_POST["country"]),
+					":telephone"	=> htmlspecialchars($_POST["phone"]),
 					":mail"			=> htmlspecialchars($_POST["mail"]),
-					":password"		=> $password
+					":password"		=> $password,
+					":cle"			=> $cle
 				]);
+				// on ajoute l'envoi d'un lien de vérification
 				if($result){
-					userConnect($_POST["mail"], $_POST["password"]);
+					require 'vendor/autoload.php';
+					// Récupération des variables nécessaires au mail de confirmation	
+					$mail = $_POST['mail'];
+					 
+					// Préparation du mail contenant le lien d'activation
+					$destinataire = $mail;
+					$sujet = "Activer votre compte" ;
+					 
+					// Le lien d'activation est composé du login(log) et de la clé(cle)
+					$message = 'Bienvenue sur SITEBIERE,
+					 
+					Pour activer votre compte, veuillez cliquer sur le lien ci dessous
+					ou copier/coller dans votre navigateur internet.
+					 
+					http://localhost/site_biere_php/validation.php?log='.urlencode($mail)."&cle=".urlencode($cle).'
+					
+					 
+					---------------
+					Ceci est un mail automatique, Merci de ne pas y répondre.';
+					 
+					 
+					sendmail($destinataire, $sujet, $message) ;
 				}else{
-					die("pas ok");
+					echo("une erreur s'est produite");
 					//TODO : signaler erreur
 				}
 			}else{//fin verif user existe

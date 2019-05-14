@@ -14,12 +14,12 @@ if(!empty($_POST)){
 		if(userConnect($user["mail"], $_POST["passwordOld"], true)){
 			if ($_POST["password"] == $_POST["passwordVerify"]) {
 				$password = password_hash(htmlspecialchars($_POST["password"]), PASSWORD_BCRYPT);
-				$sql = "UPDATE `utilisateurs` SET `password`=:password WHERE `id`=:id";
+				$sql = "UPDATE `users` SET `password`=:password WHERE `id_user`=:id_user";
 				$pdo = getDB($dbuser, $dbpassword, $dbhost,$dbname);
 				$statement = $pdo->prepare($sql);
 				$statement->execute([
 					":password" => $password,
-					":id" 	=> $user["id"]
+					":id_user" 	=> $user["id_user"]
 				]);
 				//message modif ok
 				$_SESSION['success'] = 'Votre mot de passe a bien été modifié';
@@ -46,17 +46,17 @@ if(!empty($_POST)){
 				isset($_POST["phone"]) && !empty($_POST["phone"]) &&
 				isset($_POST["robot"]) && empty($_POST["robot"])
 			){
-				$sql = 'SELECT * FROM utilisateurs WHERE id = ?';
+				$sql = 'SELECT * FROM users WHERE id_user = ?';
 				$pdo = getDB($dbuser, $dbpassword, $dbhost,$dbname);
 				$statement = $pdo->prepare($sql);
-				$statement->execute([htmlspecialchars($_POST['id'])]);
+				$statement->execute([htmlspecialchars($_POST['id_user'])]);
 				$user = $statement->fetch();
 
 				if($user) {
 					$sqlparts = []; //:Array
 					$fields = []; //:Array
 					foreach($_POST as $key => $userInfo) {
-						if($key != 'robot' && $key != 'id') {
+						if($key != 'robot' && $key != 'id_user') {
 
 							//On push "$key = ?" dans array $sqlparts
 	 						$sqlparts[] = $key.' = ?';
@@ -67,13 +67,13 @@ if(!empty($_POST)){
 					}
 
 					//On push l'id de l'utilisateur en dernier
-					$fields[] = $_POST['id'];
+					$fields[] = $_POST['id_user'];
 
 					//On convertit le tableau $sqlparts en String en séparant ses cases par des virgules ',' 
 					$sqlparts = implode(',', $sqlparts);
 
-					//UPDATE users SET lastname = ?,firstname = ?,address = ?,zipCode = ?,city = ?,country = ?,phone = ? WHERE id = ?
-					$sql = "UPDATE utilisateurs SET ".$sqlparts.' WHERE id = ?';
+					//UPDATE users SET lastname = ?,firstname = ?,address = ?,zipCode = ?,city = ?,country = ?,phone = ? WHERE id_user = ?
+					$sql = "UPDATE users SET ".$sqlparts.' WHERE id_user = ?';
 					$req = $pdo->prepare($sql);
 					$req->execute($fields);
 				}
@@ -85,9 +85,9 @@ if(!empty($_POST)){
 	}
 
 $pdo = getDB($dbuser, $dbpassword, $dbhost,$dbname);
-$sql = "SELECT * FROM commandes WHERE id_client = ?";
+$sql = "SELECT * FROM orders WHERE id_user = ?";
 $statement = $pdo->prepare($sql);
-$statement->execute([$user["id"]]);
+$statement->execute([$user["id_user"]]);
 $orders = $statement->fetchAll();
 require 'includes/header.php';
 
@@ -107,30 +107,30 @@ if(isset($_SESSION['error'])) {
 }
 
 echo	'<hr /><form method="POST" name="inscription" action="">'.
- 		input("lastname", "Votre nom :",$user["nom"]).
- 		input("firstname", "Votre prénom :",$user["prenom"]).
- 		input("address", "Votre adresse :",$user["adresse"]).
- 		input("zipCode", "Votre code postal :",$user["code_postal"]).
- 		input("city", "Votre ville :",$user["ville"]).
- 		input("country", "Votre pays :",$user["pays"]).
- 		input("phone", "Votre numéro de portable :",$user["telephone"], "tel").
-  		"Votre courriel : ".$user["mail"].
+ 		input("lastname", "votre nom",$user["lastname"]).
+ 		input("firstname", "votre prénom",$user["firstname"]).
+ 		input("address", "votre adresse",$user["address"]).
+ 		input("zipCode", "votre code postal",$user["zipCode"]).
+ 		input("city", "votre ville",$user["city"]).
+ 		input("country", "votre pays",$user["country"]).
+ 		input("phone", "votre numéro de portable",$user["phone"], "tel").
+  		"votre courriel : ".$user["mail"].
   		input("robot", "","", "hidden").
-  		input("id_user", "",$user["id"], "hidden").
+  		input("id_user", "",$user["id_user"], "hidden").
   		"<button type=\"submit\">Envoyez</button>".
   		'</form><hr />';
 
 echo 	'<form method="POST" name="inscription" action="">'.
-  		input("passwordOld", "Votre ancien mot de passe :","", "password").
-  		input("password", "Votre mot de passe :","", "password").
-  		input("passwordVerify", "Confirmez votre mot de passe :","", "password").
+  		input("passwordOld", "votre ancien mot de passe","", "password").
+  		input("password", "votre mot de passe","", "password").
+  		input("passwordVerify", "confirmez votre mot de passe","", "password").
   		input("robot", "","", "hidden").
-  		"<button type=\"submit\">Envoyer</button>".
+  		"<button type=\"submit\">Envoyez</button>".
   		'</form><hr />';
 
 //tableau des commandes
 foreach ($orders as $order) {
-	echo '<a href="'.uri("confirmationDeCommande.php?id=").$order["id"].'">commande n°'.$order["id"].'- '.number_format($order["pTTC"], 2, ',' ,'.').'€ </a><br />';
+	echo '<a href="'.uri("confirmationDeCommande.php?id=").$order["id"].'">commande n°'.$order["id"].'- '.number_format($order["priceTTC"], 2, ',' ,'.').'€ </a><br />';
 }
 
 require 'includes/footer.php';

@@ -1,27 +1,40 @@
 <?php 
 require_once 'includes/function.php';
 
-if(isset($_GET["deconnect"])){
-	if (session_status() != PHP_SESSION_ACTIVE){
-	session_start();
-	}
-	unset($_SESSION["auth"]);
+
+if(!empty($_POST)){
+	require 'userAction.php';
 }
-if(isset($_GET["p"])){
-	switch ($_GET["p"]){
+
+
+if(!isset($_GET['p'])){
+
+	header('location: index.php?p=home');
+	exit();
+
+}else{
+	include 'includes/header.php';
+	$page = htmlspecialchars(strtolower($_GET['p']));
+	switch($page)
+	{
+		//login ou register
 		case 'login':
-			require "login.php";
-			break;
 		case 'register':
-			require 'userAction.php';
+		case 'reset':
+			require 'formUser.php';
 			break;
-	}
-}
 
+		case 'boutique':
+			require 'boutique.php';
+			break;
+		case 'deconnect':
+		case 'home':
 
-include 'includes/header.php';
-
-?>
+			if (session_status() != PHP_SESSION_ACTIVE){
+				session_start();
+			}
+			unset($_SESSION["auth"]);
+			?>
 	<section class="sectionHome">
 		<h1>Bread Beer Shop</h1>
 		<h2>Welcome!</h2>
@@ -60,4 +73,12 @@ include 'includes/header.php';
 			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 		</article>
 	</section>
-<?php include 'includes/footer.php'; 
+
+	<?php 
+		break;
+		default:
+			require '404.php';
+	}
+	include 'includes/footer.php'; 
+}
+

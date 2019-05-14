@@ -1,6 +1,7 @@
 <?php 
-require_once('includes/function.php');
-$user = userOnly();
+	require_once 'includes/function.php';
+	include 'includes/header.php';
+	userOnly();
 
 $sql = "SELECT * FROM `beers`";
 $pdo = getDB($dbuser, $dbpassword, $dbhost,$dbname);

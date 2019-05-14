@@ -30,7 +30,7 @@
 		$beers[$result["id"]] = $result;
 	}
 	//var_dump($beers);die;
-
+// le cas de 0 bière n'est pas géré
 	$lines = unserialize($order['id_biere']); //Rétablis le tableau à sa forme originale
 	
 	$priceTTC = 0;
@@ -39,7 +39,8 @@
 	}
 	$priceTTC=number_format($priceTTC, 2,'.','.');
 	$order["pTTC"]=number_format($order["pTTC"], 2,'.','.');
-	if($priceTTC != $order["pTTC"]) { //On CAST $priceTTC en String pour 														comparaison avec $order["priceTTC"]
+	if($priceTTC != $order["pTTC"]) { 
+	//On CAST $priceTTC en String pour comparaison avec $order["priceTTC"]
 		header('location:'.uri('profil.php'));
 		exit();
 	}
@@ -54,6 +55,7 @@
 				<th>Prix HT</th>
 				<th>Prix TTC</th>
 				<th>Quantité</th>
+				<!-- le cas de 0 bière n'est pas géré -->
 				<th>Total TTC</th>
 			</tr>
 		</thead>

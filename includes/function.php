@@ -1,24 +1,14 @@
 <?php
 require_once 'config.php';
-
+require_once '/vendor/autoload.php';
 /**
 * retourne le nom du dossier
 *
 * @return string
 */
-//function uri($cible="")//:string
-//{
-//	global $racine; //Permet de récupérer une variable externe à la fonction
-//	$uri = "http://".$_SERVER['HTTP_HOST']; 
-//	$folder = "";
-//	if(!$racine) {
-//		$folder = basename(dirname(dirname(__FILE__))).'/'; //Dossier courant
-//	}
-//	return $uri.'/'.$folder.$cible;
-//}
+
 define('_ENV_', 'dev');
-//putenv('modenv'='prod');
-/*trouver comment modifier les style.mini.css et script.mini.js*/
+
 
 function uri($cible="")//:string
 {
@@ -52,7 +42,7 @@ function uri($cible="")//:string
 function getDB(	$dbuser='root', 
 				$dbpassword='', 
 				$dbhost='localhost',
-				$dbname='sitebeer') //:\PDO
+				$dbname='site') //:\PDO
 {
 	
 
@@ -107,10 +97,11 @@ function userConnect($mail, $password, $verify=false){//:boolean|void
 		$statement = $pdo->prepare($sql);
 		$statement->execute([htmlspecialchars($mail)]);
 		$user = $statement->fetch();
+		
 		if(	$user && 
 			password_verify(
 			htmlspecialchars($password), $user['password']
-		)){
+			&&($user['actif']))){
 				if($verify){
 					return true;
 					//exit();
@@ -122,9 +113,9 @@ function userConnect($mail, $password, $verify=false){//:boolean|void
 				unset($user['password']);
 				$_SESSION['auth'] = $user;
 				//connecté
-				header('location: profil.php');
+				header('location: ?=profil.php');
 				exit();
-
+		
 		}else{
 
 			if($verify){
@@ -135,19 +126,18 @@ function userConnect($mail, $password, $verify=false){//:boolean|void
 					session_start();
 				}
 			$_SESSION['auth'] = false;
-			header('location: p=?login.php');
+			header('location: ?p=login');
 			//TODO : err pas connecté
 		}
-
 }
-
-
 
 /**
 * verifie que l'utilisateur est connecté
 * @return array|void
 */
 function userOnly($verify=false){//:array|void|boolean
+	//définir, si $user[actif]==0], pas de connexion
+
 	if (session_status() != PHP_SESSION_ACTIVE){
 		session_start();
 	}
@@ -155,16 +145,58 @@ function userOnly($verify=false){//:array|void|boolean
 	if(!isset($_SESSION["auth"]) || (!$_SESSION["auth"])){
 		if($verify){
 			return false;
-		//exit();
-		}
-		header('location: p=?login.php');
 		exit();
+		}
+		else{
+		//header('location: p=?login.php');
+			header('location: ?=login.php');
+			exit();
+		}
 	}
 	return $_SESSION["auth"];
 }
 
 
+/***
+**Envoi un mail au destinataire contenant le sujet et le message
+** @return boolean
+**/
 
+function sendmail($destinataire, $sujet, $msg, $cci=true){
+	
+ 	require 'config.php';
 
+	$transport = (new Swift_SmtpTransport('smtp.gmail.com', 587, 'tls'))
+	  ->setUsername('amaella.souil')
+	  ->setPassword($mdpgmail)
+	;
+	
+	$mailer = new Swift_Mailer($transport);
+		$message = (new Swift_Message($sujet))
+		->setFrom(['amaella.souil@gmail.com' => 'Admin']);
+		
+	if(!is_array($destinataire)){
+		$destinataire=[$destinataire];
+	}
+
+	if(is_array($msg) && array_key_exists("html", $msg) && array_key_exists("text", $msg)){
+		$message->setBody($msg["html"], "text/html");
+		$message->addPart($msg["text"],"text/plain");
+
+	}elseif(is_array($msg) && array_key_exists("html", $msg)){
+		$message->setBody($msg["html"], "text/html");
+		$message->addPart($msg["html"], "text/plain");
+	}elseif(is_array($msg) && array_key_exists("text", $msg)){
+		$message->setBody($msg["text"], "text/plain");
+	}
+	else $message->setBody($msg);
+	if($cci){
+		$message->setBcc($destinataire);
+	}else {
+		$message->setTo($destinataire);
+	}
+
+	return $mailer->send($message);
+}
 
 

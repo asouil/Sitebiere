@@ -1,7 +1,6 @@
 <?php
-
+	
 	include 'includes/header.php';
-
 ?>
 
 <h1 class="titreduhaut">Nos Produits</h1>
