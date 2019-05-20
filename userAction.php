@@ -1,8 +1,5 @@
 <?php
-require_once 'includes/function.php';
 
-
-if(!empty($_POST)){
 	if(	isset($_POST["lastname"]) && !empty($_POST["lastname"]) &&
 		isset($_POST["firstname"]) && !empty($_POST["firstname"]) &&
 		isset($_POST["address"]) && !empty($_POST["address"]) &&
@@ -98,10 +95,8 @@ if(!empty($_POST)){
 		die('champs vides');//securisation
 	}
 
-}// fin if post
 
 //debut html
-require 'includes/header.php';
 
 echo 	'<h1>Inscription</h1>'.
 		'<form method="POST" name="inscription" action="">'.
@@ -120,5 +115,3 @@ echo 	'<h1>Inscription</h1>'.
   		"<button type=\"submit\">Envoyez</button>".
   		'</form>';
 
-
-require 'includes/footer.php';

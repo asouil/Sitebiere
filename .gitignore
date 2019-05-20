@@ -1,5 +1,7 @@
-config.php
-ressources/lock.php
-vendor/
-test.php
-src/
+config.php 
+ressources/lock.php 
+vendor/ 
+test.php 
+src/ 
+sql/ 
+sitebeer.sql

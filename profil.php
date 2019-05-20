@@ -1,8 +1,4 @@
 <?php
-require_once 'includes/function.php';
-
-$user = userOnly();
-
 
 if(!empty($_POST)){
 	//verif pour modif mdp
@@ -14,12 +10,12 @@ if(!empty($_POST)){
 		if(userConnect($user["mail"], $_POST["passwordOld"], true)){
 			if ($_POST["password"] == $_POST["passwordVerify"]) {
 				$password = password_hash(htmlspecialchars($_POST["password"]), PASSWORD_BCRYPT);
-				$sql = "UPDATE `users` SET `password`=:password WHERE `id_user`=:id_user";
+				$sql = "UPDATE `utilisateurs` SET `password`=:password WHERE `id`=:id";
 				$pdo = getDB($dbuser, $dbpassword, $dbhost,$dbname);
 				$statement = $pdo->prepare($sql);
 				$statement->execute([
 					":password" => $password,
-					":id_user" 	=> $user["id_user"]
+					":id" 	=> $user["id"]
 				]);
 				//message modif ok
 				$_SESSION['success'] = 'Votre mot de passe a bien été modifié';
@@ -46,17 +42,17 @@ if(!empty($_POST)){
 				isset($_POST["phone"]) && !empty($_POST["phone"]) &&
 				isset($_POST["robot"]) && empty($_POST["robot"])
 			){
-				$sql = 'SELECT * FROM users WHERE id_user = ?';
+				$sql = 'SELECT * FROM utilisateurs WHERE id = ?';
 				$pdo = getDB($dbuser, $dbpassword, $dbhost,$dbname);
 				$statement = $pdo->prepare($sql);
-				$statement->execute([htmlspecialchars($_POST['id_user'])]);
+				$statement->execute([htmlspecialchars($_POST['id'])]);
 				$user = $statement->fetch();
 
 				if($user) {
 					$sqlparts = []; //:Array
 					$fields = []; //:Array
 					foreach($_POST as $key => $userInfo) {
-						if($key != 'robot' && $key != 'id_user') {
+						if($key != 'robot' && $key != 'id') {
 
 							//On push "$key = ?" dans array $sqlparts
 	 						$sqlparts[] = $key.' = ?';
@@ -67,13 +63,13 @@ if(!empty($_POST)){
 					}
 
 					//On push l'id de l'utilisateur en dernier
-					$fields[] = $_POST['id_user'];
+					$fields[] = $_POST['id'];
 
 					//On convertit le tableau $sqlparts en String en séparant ses cases par des virgules ',' 
 					$sqlparts = implode(',', $sqlparts);
 
 					//UPDATE users SET lastname = ?,firstname = ?,address = ?,zipCode = ?,city = ?,country = ?,phone = ? WHERE id_user = ?
-					$sql = "UPDATE users SET ".$sqlparts.' WHERE id_user = ?';
+					$sql = "UPDATE utilisateurs SET ".$sqlparts.' WHERE id = ?';
 					$req = $pdo->prepare($sql);
 					$req->execute($fields);
 				}
@@ -85,11 +81,10 @@ if(!empty($_POST)){
 	}
 
 $pdo = getDB($dbuser, $dbpassword, $dbhost,$dbname);
-$sql = "SELECT * FROM orders WHERE id_user = ?";
+$sql = "SELECT * FROM commandes WHERE id_client = ?";
 $statement = $pdo->prepare($sql);
-$statement->execute([$user["id_user"]]);
+$statement->execute([$user["id"]]);
 $orders = $statement->fetchAll();
-require 'includes/header.php';
 
 echo 	'<h1>Profil</h1>';
 
@@ -132,5 +127,3 @@ echo 	'<form method="POST" name="inscription" action="">'.
 foreach ($orders as $order) {
 	echo '<a href="'.uri("confirmationDeCommande.php?id=").$order["id"].'">commande n°'.$order["id"].'- '.number_format($order["priceTTC"], 2, ',' ,'.').'€ </a><br />';
 }
-
-require 'includes/footer.php';

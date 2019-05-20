@@ -1,5 +1,4 @@
 <?php
-require_once 'includes/header.php';
 
 if(!empty($_POST)){
 	if(	isset($_POST["mail"]) && !empty($_POST["mail"]) &&
@@ -20,5 +19,3 @@ echo 	'<h1>login</h1>'.
   		input("robot", "","", "hidden").
   		"<button type=\"submit\">Envoyer</button>".
   		'</form>';
-
-require 'includes/footer.php';

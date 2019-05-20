@@ -6,8 +6,6 @@
 echo    input("mail", "votre courriel","", "email");
 if ($page == 'login'){
 	echo   input("password", "votre mot de passe","", "password");
-	userConnect($_POST["mail"], $_POST["password"], true);
-	
 
 
 }else if ($page == 'register'){

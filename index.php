@@ -1,17 +1,11 @@
-<?php 
+<?php
 require_once 'includes/function.php';
-
-
 if(!empty($_POST)){
 	require 'userAction.php';
 }
-
-
 if(!isset($_GET['p'])){
-
 	header('location: index.php?p=home');
 	exit();
-
 }else{
 	include 'includes/header.php';
 	$page = htmlspecialchars(strtolower($_GET['p']));
@@ -23,17 +17,15 @@ if(!isset($_GET['p'])){
 		case 'reset':
 			require 'formUser.php';
 			break;
-
 		case 'boutique':
 			require 'boutique.php';
 			break;
+		case 'profil':
+			require 'profil.php';
+			break;
 		case 'deconnect':
 		case 'home':
-
-			if (session_status() != PHP_SESSION_ACTIVE){
-				session_start();
-			}
-			unset($_SESSION["auth"]);
+			
 			?>
 	<section class="sectionHome">
 		<h1>Bread Beer Shop</h1>

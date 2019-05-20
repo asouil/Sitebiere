@@ -1,6 +1,7 @@
 <?php
 require_once 'config.php';
 require_once '/vendor/autoload.php';
+date_default_timezone_set('Europe/Paris') ;
 /**
 * retourne le nom du dossier
 *
@@ -88,7 +89,7 @@ function input($name, $label,$value="", $type='text', $require=true)//:string
 * Connect le client
 * @return boolean|void
 */
-function userConnect($mail, $password, $verify=false){//:boolean|void
+function userConnect($mail, $password, $isConnect=false){//:boolean|void
 	require 'config.php';
 
 	$sql = "SELECT * FROM utilisateurs WHERE `mail`= ?";
@@ -102,7 +103,7 @@ function userConnect($mail, $password, $verify=false){//:boolean|void
 			password_verify(
 			htmlspecialchars($password), $user['password']
 			&&($user['actif']))){
-				if($verify){
+				if($isConnect){
 					return true;
 					//exit();
 				}
@@ -118,7 +119,7 @@ function userConnect($mail, $password, $verify=false){//:boolean|void
 		
 		}else{
 
-			if($verify){
+			if($isConnect){
 				return false;
 				//exit();
 			}
@@ -149,7 +150,7 @@ function userOnly($verify=false){//:array|void|boolean
 		}
 		else{
 		//header('location: p=?login.php');
-			header('location: ?=login.php');
+			header('location: ?p=login.php');
 			exit();
 		}
 	}
